@@ -82,9 +82,10 @@ class JobApp(App):
         ("q", "exit", "Exit"),
         ("j", "go_down", "Down"),
         ("k", "go_up", "Up"),
+        ("down", "go_down", "Down"),
+        ("up", "go_up", "Up"),
         ("a", "read_description", "Open job description"),
         ("s", "new_search", "Make a new search"),
-        ("i", "test", "Test"),
     ]
 
     # Global variables
