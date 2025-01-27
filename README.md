@@ -1,6 +1,7 @@
 # TUINDEED
 
 This project is currently under active development
+Currently it only runs on Linux systems, support for Mac and Windows will come later.
 
 ## Description
 
@@ -11,7 +12,7 @@ This project allow you to search for a job without leaving your cozy terminal !
 You must have :
 
 - Python >=3.10
-- Poetry
+- Poetry >=2.0.1
 - pipx
 
 ## Installation
