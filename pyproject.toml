@@ -1,0 +1,20 @@
+[project]
+name = "tuindeed"
+version = "0.1.0"
+description = "Search for a job without leaving your cozy terminal"
+authors = [
+    {name = "Your Name",email = "you@example.com"}
+]
+readme = "README.md"
+requires-python = ">=3.10, <4.0.0"
+dependencies = [
+    "python-jobspy (>=1.1.76,<2.0.0)",
+    "textual (>=1.0.0,<2.0.0)",
+]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+tuindeed = "tuindeed.__main__:main"

@@ -1,0 +1,39 @@
+VerticalScroll {
+        height: 1fr;
+        width: 1fr;
+        border: white solid;
+        margin: 0 1;
+    }
+
+MarkdownBlock {
+    padding: 0 1;
+}
+
+Screen {
+    align: center middle;
+}
+
+.search-field {
+    height: 1fr;
+}
+
+#search-screen {
+    grid-size: 2;
+    width: 95vw;
+    height: 95vh;
+    border: thick $background 90%;
+    background: $surface;
+}
+
+#dialog {
+    grid-size: 1;
+    width: 95vw;
+    height: 95vh;
+    border: thick $background 90%;
+    background: $surface;
+}
+
+#search-title {
+    text-align: center;
+    padding: 1 1;
+}
