@@ -7,6 +7,8 @@ Currently it only runs on Linux systems, support for Mac and Windows will come l
 
 This project allow you to search for a job without leaving your cozy terminal !
 
+![browsing](pictures/browsing_tuindeed.png) | ![description](pictures/offer_description.png)
+
 ## Dependencies
 
 You must have :
