@@ -74,7 +74,7 @@ class JobScreen(ModalScreen):
     def action_leave_screen(self) -> None:
         self.app.pop_screen()
 
-class JobApp(App):
+class Tuindeed(App):
 
     CSS_PATH = "base_screen.tcss"
 
@@ -150,5 +150,5 @@ class JobApp(App):
         self.mount(Label(self.job_list.loc["title"]))
 
 if __name__ == "__main__" :
-    app = JobApp()
+    app = Tuindeed()
     app.run()

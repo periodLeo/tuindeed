@@ -1,7 +1,7 @@
-from .jobapp import JobApp
+from .jobapp import Tuindeed
 
 def main() -> None:
-    app = JobApp()
+    app = Tuindeed()
     app.run()
 
 if __name__=="__main__":
