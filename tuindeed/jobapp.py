@@ -38,6 +38,7 @@ class SearchScreen(ModalScreen):
 
     def action_submit_form(self) -> None:
         val_list = []
+        # list of forms id to retrieve data from
         id_list = [
             "#main-query",
             "#country-query",
@@ -93,6 +94,7 @@ class Tuindeed(App):
     current_index = 0
     job_list = load_csv()
 
+    # Base screen displaying previously searched, job offers.
     def compose(self) -> ComposeResult:
         yield Header()
         yield Footer()
@@ -108,6 +110,7 @@ class Tuindeed(App):
         )
 
     def get_markdown_to_render(self) -> str:
+        """Load previously saved markdown file with a given id as a string."""
         job_id, job_title = self.job_list.loc[self.current_index, ["id", "title"]]
         filepath = os.path.join(self.data_dir, job_id+".md")
 
@@ -123,21 +126,26 @@ class Tuindeed(App):
         self.query_one("#title-list", Static).update(self.get_list("title"))
 
     def action_go_down(self) -> None:
-        self.current_index = (self.current_index + 1) % len(self.job_list)
-        self.query_one("#title-list", Static).update(self.get_list("title")) # update rendering
+        if not self.job_list.empty:
+            self.current_index = (self.current_index + 1) % len(self.job_list)
+            self.query_one("#title-list", Static).update(self.get_list("title")) # update rendering
 
     def action_go_up(self) -> None:
-        self.current_index = (self.current_index - 1) % len(self.job_list)
-        self.query_one("#title-list", Static).update(self.get_list("title")) # update rendering
+        if not self.job_list.empty:
+            self.current_index = (self.current_index - 1) % len(self.job_list)
+            self.query_one("#title-list", Static).update(self.get_list("title")) # update rendering
 
     def action_read_description(self) -> None:
-        md = self.get_markdown_to_render()
-        self.push_screen(JobScreen(md))
+        if not self.job_list.empty:
+            md = self.get_markdown_to_render()
+            self.push_screen(JobScreen(md))
 
     def action_new_search(self) -> None:
         self.push_screen(SearchScreen(), self.process_new_search)
 
+    # callback function used when a new job search is made.
     def process_new_search(self, fields: list) -> None:
+        """"""
         new_job_list = search_jobs(fields)
         save_to_csv(new_job_list)
         self.job_list = load_csv()
@@ -145,9 +153,6 @@ class Tuindeed(App):
 
     def action_exit(self) -> None:
         self.exit()
-
-    def action_test(self) -> None:
-        self.mount(Label(self.job_list.loc["title"]))
 
 if __name__ == "__main__" :
     app = Tuindeed()
