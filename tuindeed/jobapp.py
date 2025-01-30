@@ -145,11 +145,11 @@ class Tuindeed(App):
 
     # callback function used when a new job search is made.
     def process_new_search(self, fields: list) -> None:
-        """"""
         new_job_list = search_jobs(fields)
-        save_to_csv(new_job_list)
-        self.job_list = load_csv()
-        self.reset_index()
+        if not new_job_list.empty:
+            save_to_csv(new_job_list)
+            self.job_list = load_csv()
+            self.reset_index()
 
     def action_exit(self) -> None:
         self.exit()
