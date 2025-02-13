@@ -49,9 +49,10 @@ def save_to_csv(jobs_list: pd.DataFrame) -> str:
     return filename
 
 def load_csv() -> pd.DataFrame:
+    cols = ["id","title","location", "company", "job_type", "job_url_direct"]
     filepath = os.path.join(os.environ["HOME"], ".local/share/tuindeed/jobs_list.csv")
-    job_list = pd.DataFrame(columns = ["id","title","location"])
+    job_list = pd.DataFrame(columns = cols)
     if(os.path.isfile(filepath)):
-        job_list = pd.read_csv(filepath).loc[:,["id","title","location"]]
+        job_list = pd.read_csv(filepath).loc[:,cols]
 
     return job_list

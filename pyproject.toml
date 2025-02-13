@@ -1,6 +1,6 @@
 [project]
 name = "tuindeed"
-version = "0.1.0"
+version = "0.2.0"
 description = "Search for a job without leaving your cozy terminal"
 authors = [
     {name = "Your Name",email = "you@example.com"}

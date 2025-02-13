@@ -3,7 +3,7 @@ import os
 from textual import on
 from textual.app import App, ComposeResult
 from textual.containers import VerticalScroll, Grid, Vertical, Horizontal
-from textual.widgets import Input, Footer, Header, Static, Markdown, Label
+from textual.widgets import Input, Footer, Header, Static, Markdown, Label, DataTable
 from textual.screen import ModalScreen
 
 from .tools import search_jobs, save_to_csv, load_csv
@@ -54,6 +54,7 @@ class SearchScreen(ModalScreen):
         self.dismiss(val_list)
 
     def action_unfocus_field(self) -> None:
+        """Release focus on input only screen to allow command input."""
         self.set_focus(None)
 
     def action_leave_screen(self) -> None:
@@ -86,6 +87,7 @@ class Tuindeed(App):
         ("down", "go_down", "Down"),
         ("up", "go_up", "Up"),
         ("a", "read_description", "Open job description"),
+        ("i", "read_info", "Open job information"),
         ("s", "new_search", "Make a new search"),
     ]
 
@@ -121,6 +123,25 @@ class Tuindeed(App):
 
         return markdown_to_render
 
+    def get_info_markdown(self) -> str:
+        info_keys = [
+            "title",
+            "company",
+            "location",
+            "job_type",
+            "job_url_direct",
+        ]
+        info_data = self.job_list.loc[self.current_index, info_keys]
+        text_title = f"# {info_data["title"]}\n\n"
+        # Not sure about this but we'll try
+        text_core = "\n".join(
+            f"**{key}** : {elem}\n" if elem != "" and key != "title" else ""
+            for key, elem in info_data.items())
+
+        markdown_to_render = text_title + text_core
+
+        return markdown_to_render
+
     def reset_index(self) -> None:
         self.current_index = 0
         self.query_one("#title-list", Static).update(self.get_list("title"))
@@ -138,6 +159,11 @@ class Tuindeed(App):
     def action_read_description(self) -> None:
         if not self.job_list.empty:
             md = self.get_markdown_to_render()
+            self.push_screen(JobScreen(md))
+
+    def action_read_info(self) -> None:
+        if not self.job_list.empty:
+            md = self.get_info_markdown()
             self.push_screen(JobScreen(md))
 
     def action_new_search(self) -> None:
